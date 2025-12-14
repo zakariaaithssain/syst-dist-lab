@@ -10,8 +10,9 @@ import numpy as np
 
 model = VGG16()
 
-def classify_image(img: Image.Image) -> str:
-    image = img.resize((224, 224))
+def classify_image(img_path: str) -> str:
+    image = Image.open(img_path)
+    image = image.resize((224, 224))
     image = img_to_array(image)
     image = np.expand_dims(image, axis = 0)
     image = preprocess_input(image)
