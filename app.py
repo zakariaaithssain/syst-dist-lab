@@ -8,6 +8,7 @@ import shutil
 import os 
 
 from agent import Agent
+
 from werkzeug.utils import secure_filename
 
 
@@ -44,9 +45,20 @@ def predict(features: RegRequest):
     return {"prediction": yhat}
 
 
-    
+
+class GenerationRequest(BaseModel):
+    prompt: str
+    max_new_tokens: int = 50
 
 
+@app.post("/textgen")
+def text(prompt: GenerationRequest): 
+    generated_text = agent.generate_text(prompt)
+
+    return {
+            "prompt": prompt.prompt,
+            "generated_text": generated_text
+        }
 
 
 
