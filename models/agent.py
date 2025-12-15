@@ -10,11 +10,14 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 
 import numpy as np 
 import pickle
+from pathlib import Path
+
+REG_MODEL = Path("models/reg_model.pkl")
 
 class Agent: 
     def __init__(self):
         try: 
-            with open("model.pkl", 'rb') as f:
+            with open(REG_MODEL, 'rb') as f:
                 self.model = pickle.load(f)
         except Exception as e: 
             print(f"regression endpoint won't be available due to: {str(e)}")

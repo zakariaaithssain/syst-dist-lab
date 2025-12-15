@@ -9,7 +9,7 @@ import uvicorn
 import shutil
 import os 
 
-from agent import Agent
+from models.agent import Agent
 
 from werkzeug.utils import secure_filename
 
