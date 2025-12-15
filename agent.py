@@ -50,6 +50,8 @@ class Agent:
         classification = f"{label[1]}, {label[2] * 100:.2f}%"
         return classification
 
+
+
     def regression(self, input: list[float]): 
         if self.model: 
             X = np.array(input).reshape(1, -1)
@@ -61,13 +63,13 @@ class Agent:
 
 
 
-    def generate_text(self, req):
-        inputs = self.tokenizer(req.prompt, return_tensors="pt")
+    def generate_text(self, prompt: str, max_new_tokens: int):
+        inputs = self.tokenizer(prompt, return_tensors="pt")
 
         with torch.no_grad():
             outputs = self.llm.generate(
                 **inputs,
-                max_new_tokens=req.max_new_tokens,
+                max_new_tokens= max_new_tokens,
                 do_sample=True,
                 temperature=0.9,
                 top_p=0.95,
