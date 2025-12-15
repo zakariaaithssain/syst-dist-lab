@@ -43,13 +43,14 @@
 
         <section>
             <h2>Déploiement</h2>
-            <p>Comme j’utilise FastAPI et un seul service, le déploiement se fait avec :</p>
+            <p>On utilise FastAPI comme un seul service (est donc pas besoin de docker-compose, car on a un seul Dockerfile), le déploiement se fait avec :</p>
             <pre class="bg-light p-3 border">
 # Construire l'image Docker
 docker build -t ml-deploy:latest .
 
-# Lancer le conteneur
-docker run -p 8000:8000 ml-deploy:latest
+# Lancer le conteneur avec volume
+docker run -p 3000:3000 -v /home/zeco/projects/dist_sys/uploads:/app/uploads ml-deploy:latest
+
             </pre>
             <p>Les endpoints disponibles sont :</p>
             <ul>
