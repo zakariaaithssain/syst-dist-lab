@@ -11,6 +11,9 @@ COPY . .
 RUN uv venv .venv
 RUN uv pip install -r requirements.txt --python .venv/bin/python
 
+#create uploads folder inside container
+RUN mkdir -p /app/uploads
+
 EXPOSE 3000
 
 CMD ["python", "-m", "app.main"]

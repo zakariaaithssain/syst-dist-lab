@@ -1,17 +1,65 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>ML Deployment App</title>
+    <meta charset="UTF-8">
+    <title>Projet Syst Dist</title>
+    <link 
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
+        rel="stylesheet">
 </head>
 <body>
+    <h1>Application de déploiement de modèles ML</h1>
 
-<h1>Application de déploiement de modèles ML</h1>
+    <div class="container my-5">
 
-<ul>
-    <li><a href="/predict-ui">Reconnaissance d'objet (VGG16)</a></li>
-    <li><a href="/regpredict-ui">Modèle de régression</a></li>
-    <li><a href="/textgen-ui">Génération de texte</a></li>
+        <section class="mb-4">
+            <h2>Travail effectué</h2>
+            <ol>
+                <li>
+                    Déploiement d’un modèle de reconnaissance d’objet <strong>VGG16</strong> en utilisant <strong>FastAPI</strong>.
+                    Le point d’entrée pour ce modèle est <code>/predict</code>.
+                </li>
+                <li>
+                    Sécurisation du code pour réduire le risque d’upload de fichiers à risque,
+                    en utilisant la bibliothèque <code>werkzeug.utils</code>.
+                </li>
+                <li>
+                    Création d’un conteneur Docker pour cette application.
+                    Un <strong>volume</strong> est utilisé pour sauvegarder les fichiers téléchargés sur la machine hôte.
+                </li>
+                <li>
+                    Création d’un second endpoint pour déployer un modèle ML sous forme <strong>Pickle</strong>.
+                    Le point d’entrée est <code>/regpredict</code>.
+                </li>
+                <li>
+                    Création d’un troisième endpoint <code>/textgen</code> pour déployer un modèle Hugging Face (GPT2).
+                </li>
+                <li>
+                    Création de ce endpoint <code>/home</code> pour présenter et expliquer le projet,
+                    avec les étapes et commandes pour déployer automatiquement l’application.
+                </li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Déploiement</h2>
+            <p>Comme j’utilise FastAPI et un seul service, le déploiement se fait avec :</p>
+            <pre class="bg-light p-3 border">
+# Construire l'image Docker
+docker build -t ml-deploy:latest .
+
+# Lancer le conteneur
+docker run -p 8000:8000 ml-deploy:latest
+            </pre>
+            <p>Les endpoints disponibles sont :</p>
+            <ul>
+    <li><code><a href="/predict-ui">/predict</a></code> → modèle VGG16</li>
+    <li><code><a href="/regpredict-ui">/regpredict</a></code> → modèle de régression Pickle</li>
+    <li><code><a href="/textgen-ui">/textgen</a></code> → génération de texte GPT2</li>
+    <li><code><a href="/home">/home</a></code> → cette page</li>
 </ul>
 
+        </section>
+    </div>
 </body>
 </html>
