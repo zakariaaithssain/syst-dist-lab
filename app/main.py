@@ -30,7 +30,6 @@ def predict(file: UploadFile = File(...)):
         shutil.copyfileobj(file.file, buffer)
 
     prediction = agent.classify_img(file_path)
-    os.remove(file_path)
 
     return {"prediction" : prediction}
 
